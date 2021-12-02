@@ -9,6 +9,7 @@ require("dotenv/config");
 const authRoutes = require("./routes/authRoutes");
 const movieRoutes = require("./routes/movieRoutes");
 const showRoutes = require("./routes/showRoutes");
+const collectionRoutes = require("./routes/collectionRoutes");
 
 const app = express();
 
@@ -34,3 +35,4 @@ mongoose
 app.use(authRoutes);
 app.use(movieRoutes);
 app.use(showRoutes);
+app.use(collectionRoutes);

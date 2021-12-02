@@ -50,11 +50,11 @@ const createToken = (id) => {
 
 module.exports.signupPost = async (req, res) => {
   // Destructuring the email and password from request body
-  const { email, password } = req.body;
+  const { email, password, displayName } = req.body;
 
   try {
     // Creating the new user locally in the DB - async task (mongoose create task)
-    const user = await User.create({ email, password });
+    const user = await User.create({ email, displayName, password });
     // Log the user in instantly - accessing and passing the id of the user via mongoose _id
     const token = createToken(user._id);
     // sending / attaching a cookie, which is our jwt we have just created, httpOnly so uneditable and maxAge of 3 days, which is why it is x 1000 due to Chrome working differently.
