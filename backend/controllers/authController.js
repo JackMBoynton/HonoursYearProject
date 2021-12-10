@@ -60,7 +60,7 @@ module.exports.signupPost = async (req, res) => {
     // sending / attaching a cookie, which is our jwt we have just created, httpOnly so uneditable and maxAge of 3 days, which is why it is x 1000 due to Chrome working differently.
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     // Sending the DB version of the user back along with 201 code for success.
-    res.status(201).json({ user: user._id });
+    res.status(201).json({ user: user.displayName });
   } catch (err) {
     const errors = handleErrors(err);
     res.status(400).json({ errors });
@@ -80,7 +80,7 @@ module.exports.loginPost = async (req, res) => {
     // sending / attaching a cookie, which is our jwt we have just created, httpOnly so uneditable and maxAge of 3 days, which is why it is x 1000 due to Chrome working differently.
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     // return the status
-    res.status(200).json({ user: user._id });
+    res.status(200).json({ user: user.displayName });
   } catch (err) {
     const errors = handleErrors(err);
     res.status(400).json({ errors });
@@ -91,4 +91,25 @@ module.exports.loginPost = async (req, res) => {
 module.exports.logoutGet = (req, res) => {
   res.cookie("jwt", "", { maxAge: 1 });
   res.redirect("/");
+};
+
+// Function for returning User ID from jwt
+module.exports.getUIDViaToken = (token) => {
+  var userID;
+
+  try {
+    if (token) {
+      jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+        if (err) {
+          throw Error("No User ID could be found from JWT");
+        } else {
+          userID = decodedToken.id;
+        }
+      });
+    }
+  } catch (error) {
+    throw Error("No User ID could be found from JWT");
+  }
+
+  return userID;
 };

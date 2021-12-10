@@ -1,5 +1,4 @@
-const jwt = require("jsonwebtoken");
-require("dotenv/config");
+const { getUIDViaToken } = require("./authController");
 
 const WatchedList = require("../models/WatchedList");
 const WatchList = require("../models/WatchList");
@@ -9,37 +8,16 @@ const handleErrors = (err) => {
   let errors = { message: "" };
 
   // Incorrect email address
-  if (err.message.includes("collection")) {
-    errors.message = "There is an error in your collection";
+  if (err.message.includes("Movie ID already present")) {
+    errors.message = "Insert into collection failed due to duplicate Movie ID";
   }
 
   // Incorrect password
-  if (err.message.includes("id")) {
+  if (err.message.includes("User ID")) {
     errors.message = "There is an error with user authentication";
   }
 
   return errors;
-};
-
-// Function for getting the UserID for each of these methods via jwt
-const getUIDViaToken = (token) => {
-  var userID;
-
-  try {
-    if (token) {
-      jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-        if (err) {
-          throw Error("No User ID could be found from JWT");
-        } else {
-          userID = decodedToken.id;
-        }
-      });
-    }
-  } catch (error) {
-    throw Error("No User ID could be found from JWT");
-  }
-
-  return userID;
 };
 
 // Find users Watched Collection
@@ -52,7 +30,10 @@ module.exports.getUserWatchedCollection = async (req, res) => {
     const userID = getUIDViaToken(jwt);
 
     // supply the user id to our method in WatchedList model to get WatchedList collection
-    const watchedList = WatchedList.findUserWatched(userID);
+    var watchedList = await WatchedList.findUserWatched(userID);
+    watchedList = {
+      "Watched": watchedList.watchedCollection,
+    };
 
     res.status(200).json({ "WatchedList": watchedList });
   } catch (error) {
@@ -71,9 +52,13 @@ module.exports.getUserWatchingCollection = async (req, res) => {
     const userID = getUIDViaToken(jwt);
 
     // supply the user id to our method in WatchedList model to get WatchedList collection
-    const watchList = WatchList.findUserWatchlist(userID);
+    var watchList = await WatchList.findUserWatchlist(userID);
 
-    res.status(200).json({ "Watchlist": watchList });
+    watchList = {
+      "Watching": watchList.watchCollection,
+    };
+
+    res.status(200).json({ "WatchList": watchList });
   } catch (error) {
     error = handleErrors(error);
     res.status(400).json({ "Error": error.message });

@@ -68,7 +68,6 @@ watchedListSchema.statics.updateUserWatched = async function (
       const watchedCollection = watchedDocument.watchedCollection;
       // check if movieID already exists there
       const index = watchedCollection.indexOf(movieID);
-      console.log(index);
       // movieID isnt present
       if (index === -1) {
         // now add to our current WatchedList

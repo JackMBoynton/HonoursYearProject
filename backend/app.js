@@ -5,11 +5,15 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv/config");
 
+// for request logging - debugging only
+const morgan = require("morgan");
+
 // My requires
 const authRoutes = require("./routes/authRoutes");
 const movieRoutes = require("./routes/movieRoutes");
 const showRoutes = require("./routes/showRoutes");
 const collectionRoutes = require("./routes/collectionRoutes");
+const preferenceRoutes = require("./routes/preferenceRoutes");
 
 const app = express();
 
@@ -18,6 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
+app.use(morgan("combined"));
 
 // Database Connection
 mongoose
@@ -36,3 +41,4 @@ app.use(authRoutes);
 app.use(movieRoutes);
 app.use(showRoutes);
 app.use(collectionRoutes);
+app.use(preferenceRoutes);
