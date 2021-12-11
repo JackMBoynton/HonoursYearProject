@@ -1,34 +1,42 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../../styles/All/NavBar.css";
 
 const NavBar = () => {
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
+  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
+
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a className="navbar-brand" href="/">
         Cinesearch
       </a>
       <button
-        class="navbar-toggler"
+        className="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarTogglerDemo02"
         aria-controls="navbarTogglerDemo02"
-        aria-expanded="false"
+        aria-expanded={!isNavCollapsed ? true : false}
         aria-label="Toggle navigation"
+        onClick={handleNavCollapse}
       >
-        <span class="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="/signup">
+      <div
+        className={`${isNavCollapsed ? "collapse" : ""} navbar-collapse`}
+        id="navbarTogglerDemo02"
+      >
+        <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
+          <li className="nav-item">
+            <a className="nav-link" href="/signup">
               Sign Up
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">
+          <li className="nav-item">
+            <a className="nav-link" href="/login">
               Log In
             </a>
           </li>

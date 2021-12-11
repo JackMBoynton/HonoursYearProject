@@ -1,0 +1,16 @@
+input[type="checkbox"] {
+  margin-right: 5%;
+}
+
+.netflix {
+  background-color: rgba(33, 37, 41, 1) !important;
+}
+
+.d-flex {
+  justify-content: center;
+  align-items: center;
+}
+
+#all-selections {
+  margin-top: 0.5%;
+}

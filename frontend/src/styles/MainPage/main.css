@@ -2,3 +2,10 @@ body {
   background: #121212;
   color: #ffffff;
 }
+
+#div-content {
+  justify-content: center;
+  margin-top: 1.5%;
+  flex-direction: column;
+  align-items: center;
+}

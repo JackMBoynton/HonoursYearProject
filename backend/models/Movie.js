@@ -46,28 +46,28 @@ movieSchema.statics.findMovies = async function (
 
   // first check for search value
   if (searchQuery) {
-    if (netflix === "True") {
+    if (netflix === true) {
       movies = await this.find({
         $and: [
           { "Title": { "$regex": searchQuery, "$options": "i" } },
           { "Netflix": 1 },
         ],
       });
-    } else if (hulu === "True") {
+    } else if (hulu === true) {
       movies = await this.find({
         $and: [
           { "Title": { "$regex": searchQuery, "$options": "i" } },
           { "Hulu": 1 },
         ],
       });
-    } else if (disney === "True") {
+    } else if (disney === true) {
       movies = await this.find({
         $and: [
           { "Title": { "$regex": searchQuery, "$options": "i" } },
           { "Disney+": 1 },
         ],
       });
-    } else if (amazon === "True") {
+    } else if (amazon === true) {
       movies = await this.find({
         $and: [
           { "Title": { "$regex": searchQuery, "$options": "i" } },
