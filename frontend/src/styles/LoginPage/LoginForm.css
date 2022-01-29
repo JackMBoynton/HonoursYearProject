@@ -1,0 +1,26 @@
+form h1 {
+  text-align: center;
+}
+
+#form-div {
+  margin-top: 15%;
+}
+
+.form-group {
+  margin-top: 4%;
+  margin-bottom: 4%;
+}
+
+input,
+button {
+  margin-top: 4%;
+}
+
+button {
+  width: 100%;
+}
+
+.form-control:focus,
+.form-control {
+  color: #ffffff;
+}

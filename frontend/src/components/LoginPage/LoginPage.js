@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import "../../styles/SignupPage/main.css";
 
-const LoginPage = () => {
-  return (<h1>Login Page</h1>), (<p>This is the login Page</p>);
+// Components
+import LoginForm from "./LoginForm";
+
+const LoginPage = (props) => {
+  return (
+    <div className="container">
+      <LoginForm history={props.history} />
+    </div>
+  );
 };
 
 export default LoginPage;

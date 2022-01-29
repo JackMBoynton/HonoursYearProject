@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/MainPage/main.css";
 const axios = require("axios");
 
@@ -20,20 +18,20 @@ const MainPage = () => {
   const [huluChoice, setHuluChoice] = useState(false); // hook for checkbox netflix
   const [disneyChoice, setDisneyChoice] = useState(false); // hook for checkbox netflix
   const [amazonChoice, setAmazonChoice] = useState(false); // hook for checkbox netflix
+  const [searchChoice, setSearchChoice] = useState(""); // hook for setting show or movie
 
   // Methods
-  // Method for sending our query for searching
-  const getMovieRequest = async (searchValue) => {
-    const url = `http://localhost:5000/movies/search`;
+  // Method for sending our query for searching for a movie
+  const getRequest = async (searchValue, searchChoice) => {
+    var url;
+
+    if (searchChoice === "show") {
+      url = "http://localhost:5000/shows/search";
+    } else if (searchChoice === "movie") {
+      url = "http://localhost:5000/movies/search";
+    }
 
     if (searchValue.length >= 3) {
-      console.log({
-        searchValue,
-        netflixChoice,
-        huluChoice,
-        disneyChoice,
-        amazonChoice,
-      });
       axios
         .post(url, {
           search: searchValue,
@@ -55,13 +53,28 @@ const MainPage = () => {
 
   // Run our method when our searchValue or choices changes
   useEffect(() => {
-    getMovieRequest(searchValue);
-  }, [searchValue, netflixChoice, huluChoice, disneyChoice, amazonChoice]);
+    getRequest(searchValue, searchChoice);
+  }, [
+    searchValue,
+    netflixChoice,
+    huluChoice,
+    disneyChoice,
+    amazonChoice,
+    searchChoice,
+  ]);
+
+  // Run our set choice method when choice is undefined
+  useEffect(() => {
+    setSearchChoice("movie");
+  }, []);
 
   return (
     <div id="div-content" className="d-flex p-2">
       <h5>Search for your Movie / TV Show here:</h5>
-      <SearchBox setSearchValue={setSearchValue} />
+      <SearchBox
+        setChoiceValue={setSearchChoice}
+        setSearchValue={setSearchValue}
+      />
       <Selections
         setNetflixChoice={setNetflixChoice}
         setHuluChoice={setHuluChoice}

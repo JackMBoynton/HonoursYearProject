@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import "../../styles/SignupPage/main.css";
+import { useHistory } from "react-router-dom";
 
-const SignupPage = () => {
+// Components
+import SignupForm from "./SignupForm";
+
+const SignupPage = (props) => {
   return (
-    <>
-      <h1>Signup Page</h1>,<p>This is the Signup Page</p>
-    </>
+    <div className="container">
+      <SignupForm history={props.history} />
+    </div>
   );
 };
 

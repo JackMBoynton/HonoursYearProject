@@ -19,11 +19,19 @@ const ResultsTable = (props) => {
               <th scope="row">{movie.Title}</th>
               <td>{movie.IMDb ? movie.IMDb : "Missing"}</td>
               <td>
-                {movie["Rotten Tomatoes"]
-                  ? movie["Rotten Tomatoes"]
-                  : "Missing"}
+                {movie["Rotten Tomatoes"] ? movie["Rotten Tomatoes"] : "N/A"}
               </td>
-              <td>Hello</td>
+              <td>
+                <a className="btn btn-primary" href="#" role="button">
+                  View
+                </a>
+                <a className="btn btn-success" href="#" role="button">
+                  Add to Watchlist
+                </a>
+                <a className="btn btn-warning" href="#" role="button">
+                  Add to Watched
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>

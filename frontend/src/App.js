@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Route, Link, Switch } from "react-router-dom";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
 import "bootstrap/dist/css/bootstrap.min.css";
 const axios = require("axios");
 
@@ -8,16 +9,20 @@ import NavBar from "./components/All/NavBar";
 import LoginPage from "./components/LoginPage/LoginPage";
 import MainPage from "./components/MainPage/MainPage";
 import SignupPage from "./components/SignupPage/SignupPage";
+import LogoutPage from "./components/LogoutPage/LogoutPage";
 
 const App = () => {
   return (
     <div className="App">
-      <NavBar />
-      <Switch>
-        <Route exact path="/" component={MainPage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/signup" component={SignupPage} />
-      </Switch>
+      <CookiesProvider>
+        <NavBar />
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/signup" component={SignupPage} />
+          <Route exact path="/logout" component={LogoutPage} />
+        </Switch>
+      </CookiesProvider>
     </div>
   );
 };

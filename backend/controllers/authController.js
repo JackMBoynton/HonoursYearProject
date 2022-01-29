@@ -4,7 +4,6 @@ require("dotenv/config");
 
 // Error handling
 const handleErrors = (err) => {
-  console.log(err.message, err.code);
   let errors = { email: "", password: "" };
 
   // Incorrect email address
@@ -20,7 +19,6 @@ const handleErrors = (err) => {
   // Duplicate error code
   if (err.code === 11000) {
     errors.email = "Email already registered";
-    return errors;
   }
 
   // Validation errors
@@ -42,8 +40,8 @@ const handleErrors = (err) => {
 const maxAge = 3 * 24 * 60 * 60;
 
 // this function creates and returns a JWT from the id passed - the id passed in will come from the user inside the db.
-const createToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+const createToken = (id, displayName) => {
+  return jwt.sign({ id, displayName }, process.env.JWT_SECRET, {
     expiresIn: maxAge,
   });
 };
@@ -56,11 +54,15 @@ module.exports.signupPost = async (req, res) => {
     // Creating the new user locally in the DB - async task (mongoose create task)
     const user = await User.create({ email, displayName, password });
     // Log the user in instantly - accessing and passing the id of the user via mongoose _id
-    const token = createToken(user._id);
+    const token = createToken(user._id, user.displayName);
     // sending / attaching a cookie, which is our jwt we have just created, httpOnly so uneditable and maxAge of 3 days, which is why it is x 1000 due to Chrome working differently.
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      maxAge: maxAge * 1000,
+      sameSite: "lax",
+    });
     // Sending the DB version of the user back along with 201 code for success.
-    res.status(201).json({ user: user.displayName });
+    res.status(201).json({ user: user.displayName, jwt: token });
   } catch (err) {
     const errors = handleErrors(err);
     res.status(400).json({ errors });
@@ -76,7 +78,7 @@ module.exports.loginPost = async (req, res) => {
     // this uses the static method we made in our User Model - it will return the user if successful or an error.
     const user = await User.login(email, password);
     // Log the user in instantly - accessing and passing the id of the user via mongoose _id
-    const token = createToken(user._id);
+    const token = createToken(user._id, user.displayName);
     // sending / attaching a cookie, which is our jwt we have just created, httpOnly so uneditable and maxAge of 3 days, which is why it is x 1000 due to Chrome working differently.
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     // return the status
@@ -90,7 +92,7 @@ module.exports.loginPost = async (req, res) => {
 // Logging out the user
 module.exports.logoutGet = (req, res) => {
   res.cookie("jwt", "", { maxAge: 1 });
-  res.redirect("/");
+  res.status(200).json();
 };
 
 // Function for returning User ID from jwt
@@ -112,4 +114,32 @@ module.exports.getUIDViaToken = (token) => {
   }
 
   return userID;
+};
+
+module.exports.isAuthedGet = async (req, res) => {
+  // jwt
+  token = req.headers.cookie;
+  token = token.slice(4, token.length);
+  displayName = "";
+
+  try {
+    // check if we have a token first
+    if (token) {
+      jwt.verify(token, process.env.JWT_SECRET, function (err, dec) {
+        if (err) {
+          throw Error("User not Authenticated.");
+        } else {
+          displayName = dec.displayName;
+        }
+      });
+    }
+    res.status(200).json({
+      "Status": true,
+      "Name": displayName,
+    });
+  } catch (error) {
+    res.status(400).json({
+      "Status": false,
+    });
+  }
 };
