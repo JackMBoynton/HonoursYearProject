@@ -3,7 +3,7 @@ import "../../styles/MainPage/ResultsTable.css";
 
 const ResultsTable = (props) => {
   return (
-    <div className="container">
+    <div className="container-fluid">
       <table className="table table-dark">
         <thead>
           <tr>

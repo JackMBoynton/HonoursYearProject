@@ -23,10 +23,9 @@ const NavBar = () => {
           setUserAuth(true);
           setUserDisplayName(response.data.Name);
         }
-        console.log(userDisplayName);
       })
       .catch(function (error) {
-        console.log(error);
+        // Do nothing
       });
   };
 
@@ -75,6 +74,16 @@ const NavBar = () => {
           <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
             <li className="nav-item">
               <a className="nav-link">Welcome, {userDisplayName}!</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/profile">
+                View Profile
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/account-settings">
+                Edit Account
+              </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/logout">

@@ -119,26 +119,30 @@ module.exports.getUIDViaToken = (token) => {
 module.exports.isAuthedGet = async (req, res) => {
   // jwt
   token = req.headers.cookie;
-  token = token.slice(4, token.length);
+  if (token) {
+    token = token.slice(4, token.length);
+  }
   displayName = "";
 
-  try {
-    // check if we have a token first
-    if (token) {
-      jwt.verify(token, process.env.JWT_SECRET, function (err, dec) {
-        if (err) {
-          throw Error("User not Authenticated.");
-        } else {
-          displayName = dec.displayName;
-        }
-      });
-    }
-    res.status(200).json({
-      "Status": true,
-      "Name": displayName,
+  // check if we have a token first
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, function (err, dec) {
+      if (err) {
+        // we don't attach a status code - as this is an internal authentication check
+        res.json({
+          "Status": false,
+        });
+      } else {
+        displayName = dec.displayName;
+        res.status(200).json({
+          "Status": true,
+          "Name": displayName,
+        });
+      }
     });
-  } catch (error) {
-    res.status(400).json({
+  } else {
+    // same here - internal auth check
+    res.json({
       "Status": false,
     });
   }

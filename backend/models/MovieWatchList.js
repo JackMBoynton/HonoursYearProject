@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
 
-const watchListSchema = new mongoose.Schema({
+const movieWatchListSchema = new mongoose.Schema({
   userID: {
     type: mongoose.Types.ObjectId,
   },
   watchCollection: {
     // this will be an array of IDs, Movie IDs.
-    type: [Number],
+    type: [mongoose.Types.ObjectId],
   },
 });
 
 // Function that creates specific user's initial Watch Collection
-watchListSchema.statics.createUserWatchlist = async function (userID) {
+movieWatchListSchema.statics.createUserWatchlist = async function (userID) {
   const initialCollection = [];
   try {
     const watchCollection = await this.create({
@@ -26,7 +26,7 @@ watchListSchema.statics.createUserWatchlist = async function (userID) {
 };
 
 // Function that finds specific user's WatchList collection
-watchListSchema.statics.findUserWatchlist = async function (userID) {
+movieWatchListSchema.statics.findUserWatchlist = async function (userID) {
   var WatchDocument;
 
   try {
@@ -55,7 +55,7 @@ watchListSchema.statics.findUserWatchlist = async function (userID) {
 };
 
 // Function that updates specific user's WatchList collection
-watchListSchema.statics.updateUserWatchlist = async function (
+movieWatchListSchema.statics.updateUserWatchlist = async function (
   userID,
   movieID,
   type
@@ -114,6 +114,6 @@ watchListSchema.statics.updateUserWatchlist = async function (
   return watchList;
 };
 
-const WatchList = mongoose.model("watchlist", watchListSchema);
+const MovieWatchList = mongoose.model("movieWatchlist", movieWatchListSchema);
 
-module.exports = WatchList;
+module.exports = MovieWatchList;

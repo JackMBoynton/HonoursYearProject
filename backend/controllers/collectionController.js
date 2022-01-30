@@ -1,7 +1,9 @@
 const { getUIDViaToken } = require("./authController");
 
-const WatchedList = require("../models/WatchedList");
-const WatchList = require("../models/WatchList");
+const ShowWatchedList = require("../models/ShowWatchedList");
+const ShowWatchList = require("../models/ShowWatchList");
+const MovieWatchedList = require("../models/MovieWatchedList");
+const MovieWatchList = require("../models/MovieWatchList");
 
 // Error handling
 const handleErrors = (err) => {
@@ -20,8 +22,12 @@ const handleErrors = (err) => {
   return errors;
 };
 
+/* #########################
+   #     Movies Section    #
+   ######################### */
+
 // Find users Watched Collection
-module.exports.getUserWatchedCollection = async (req, res) => {
+module.exports.getUserMoviesWatchedCollection = async (req, res) => {
   try {
     // get our jwt from the request
     const jwt = req.body.jwt;
@@ -30,7 +36,7 @@ module.exports.getUserWatchedCollection = async (req, res) => {
     const userID = getUIDViaToken(jwt);
 
     // supply the user id to our method in WatchedList model to get WatchedList collection
-    var watchedList = await WatchedList.findUserWatched(userID);
+    var watchedList = await MovieWatchedList.findUserWatched(userID);
     watchedList = {
       "Watched": watchedList.watchedCollection,
     };
@@ -43,7 +49,7 @@ module.exports.getUserWatchedCollection = async (req, res) => {
 };
 
 // Find users Watching Collection
-module.exports.getUserWatchingCollection = async (req, res) => {
+module.exports.getUserMoviesWatchingCollection = async (req, res) => {
   try {
     // get our jwt from the request
     const jwt = req.body.jwt;
@@ -52,7 +58,7 @@ module.exports.getUserWatchingCollection = async (req, res) => {
     const userID = getUIDViaToken(jwt);
 
     // supply the user id to our method in WatchedList model to get WatchedList collection
-    var watchList = await WatchList.findUserWatchlist(userID);
+    var watchList = await MovieWatchList.findUserWatchlist(userID);
 
     watchList = {
       "Watching": watchList.watchCollection,
@@ -66,14 +72,14 @@ module.exports.getUserWatchingCollection = async (req, res) => {
 };
 
 // Updates the users Watched Collection
-module.exports.updateUserWatchedCollection = async (req, res) => {
+module.exports.updateUserMoviesWatchedCollection = async (req, res) => {
   // get our jwt from the request
   const { jwt, movieID, type } = req.body;
 
   try {
     // use this jwt in our method to get our userID
     const userID = getUIDViaToken(jwt);
-    const newCollection = await WatchedList.updateUserWatched(
+    const newCollection = await MovieWatchedList.updateUserWatched(
       userID,
       movieID,
       type
@@ -88,14 +94,107 @@ module.exports.updateUserWatchedCollection = async (req, res) => {
 };
 
 // Updates the users Watching Collection
-module.exports.updateUserWatchingCollection = async (req, res) => {
+module.exports.updateUserMoviesWatchingCollection = async (req, res) => {
   // get our jwt from the request
   const { jwt, movieID, type } = req.body;
 
   try {
     // use this jwt in our method to get our userID
     const userID = getUIDViaToken(jwt);
-    const newCollection = await WatchList.updateUserWatchlist(
+    const newCollection = await MovieWatchList.updateUserWatchlist(
+      userID,
+      movieID,
+      type
+    );
+    res.status(200).json({ "Collection": newCollection });
+  } catch (error) {
+    error = handleErrors(error);
+    res.status(400).json({
+      "Error": error.message,
+    });
+  }
+};
+
+/* #########################
+   #     Shows Section     #
+   ######################### */
+
+// Find users Watched Collection
+module.exports.getUserShowsWatchedCollection = async (req, res) => {
+  try {
+    // get our jwt from the request
+    const jwt = req.body.jwt;
+
+    // use this jwt in our method to get our userID
+    const userID = getUIDViaToken(jwt);
+
+    // supply the user id to our method in WatchedList model to get WatchedList collection
+    var watchedList = await ShowWatchedList.findUserWatched(userID);
+    watchedList = {
+      "Watched": watchedList.watchedCollection,
+    };
+
+    res.status(200).json({ "WatchedList": watchedList });
+  } catch (error) {
+    error = handleErrors(error);
+    res.status(400).json({ "Error": error.message });
+  }
+};
+
+// Find users Watching Collection
+module.exports.getUserShowsWatchingCollection = async (req, res) => {
+  try {
+    // get our jwt from the request
+    const jwt = req.body.jwt;
+
+    // use this jwt in our method to get our userID
+    const userID = getUIDViaToken(jwt);
+
+    // supply the user id to our method in WatchedList model to get WatchedList collection
+    var watchList = await ShowWatchList.findUserWatchlist(userID);
+
+    watchList = {
+      "Watching": watchList.watchCollection,
+    };
+
+    res.status(200).json({ "WatchList": watchList });
+  } catch (error) {
+    error = handleErrors(error);
+    res.status(400).json({ "Error": error.message });
+  }
+};
+
+// Updates the users Watched Collection
+module.exports.updateUserShowsWatchedCollection = async (req, res) => {
+  // get our jwt from the request
+  const { jwt, movieID, type } = req.body;
+
+  try {
+    // use this jwt in our method to get our userID
+    const userID = getUIDViaToken(jwt);
+    const newCollection = await ShowWatchedList.updateUserWatched(
+      userID,
+      movieID,
+      type
+    );
+    res.status(200).json({ "Collection": newCollection });
+  } catch (error) {
+    error = handleErrors(error);
+    res.status(400).json({
+      "Error": error.message,
+    });
+  }
+};
+
+// Updates the users Watching Collection
+module.exports.updateUserShowsWatchingCollection = async (req, res) => {
+  // get our jwt from the request
+  const { jwt, movieID, type } = req.body;
+
+  try {
+    // use this jwt in our method to get our userID
+    const userID = getUIDViaToken(jwt);
+    const newCollection = await ShowWatchList.updateUserWatchlist(
       userID,
       movieID,
       type

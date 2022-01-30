@@ -4,35 +4,55 @@ const collectionController = require("../controllers/collectionController");
 
 // Routes
 // This route will take a userID in the form of a POST variable
+
+/* #########################
+   #     Movies Section    #
+   ######################### */
+
 router.post(
-  "/collections/watched",
-  collectionController.getUserWatchedCollection
+  "/collections/movies/watched",
+  collectionController.getUserMoviesWatchedCollection
 );
 
 // Same with this route - this is to avoid passing sensitive IDs in URLs
 router.post(
-  "/collections/watching",
-  collectionController.getUserWatchingCollection
+  "/collections/movies/watching",
+  collectionController.getUserMoviesWatchingCollection
 );
 
 router.put(
-  "/collections/watched/update/add",
-  collectionController.updateUserWatchedCollection
+  "/collections/movies/watching/update",
+  collectionController.updateUserMoviesWatchingCollection
 );
 
 router.put(
-  "/collections/watching/update/add",
-  collectionController.updateUserWatchingCollection
+  "/collections/movies/watched/update",
+  collectionController.updateUserMoviesWatchedCollection
+);
+
+/* #########################
+   #     Movies Section    #
+   ######################### */
+
+router.post(
+  "/collections/shows/watched",
+  collectionController.getUserShowsWatchedCollection
+);
+
+// Same with this route - this is to avoid passing sensitive IDs in URLs
+router.post(
+  "/collections/shows/watching",
+  collectionController.getUserShowsWatchingCollection
 );
 
 router.put(
-  "/collections/watched/update/remove",
-  collectionController.updateUserWatchedCollection
+  "/collections/shows/watching/update",
+  collectionController.updateUserShowsWatchingCollection
 );
 
 router.put(
-  "/collections/watching/update/remove",
-  collectionController.updateUserWatchingCollection
+  "/collections/shows/watched/update",
+  collectionController.updateUserShowsWatchedCollection
 );
 
 module.exports = router;
