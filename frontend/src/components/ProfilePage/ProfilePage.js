@@ -2,14 +2,20 @@ import React, { useEffect, useState } from "react";
 import "../../styles/ProfilePage/main.css";
 
 // Components
-import SignupForm from "./SignupForm";
+import WatchedMoviesList from "./WatchedMoviesList";
+import WatchingMoviesList from "./WatchingMoviesList";
+import WatchedShowsList from "./WatchedShowsList";
+import WatchingShowsList from "./WatchingShowsList";
 
-const SignupPage = (props) => {
+const ProfilePage = () => {
   return (
     <div className="container">
-      <SignupForm history={props.history} />
+      <WatchedMoviesList />
+      <WatchingMoviesList />
+      <WatchedShowsList />
+      <WatchingShowsList />
     </div>
   );
 };
 
-export default SignupPage;
+export default ProfilePage;

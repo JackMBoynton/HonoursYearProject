@@ -10,6 +10,7 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import MainPage from "./components/MainPage/MainPage";
 import SignupPage from "./components/SignupPage/SignupPage";
 import LogoutPage from "./components/LogoutPage/LogoutPage";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/signup" component={SignupPage} />
           <Route exact path="/logout" component={LogoutPage} />
+          <Route exact path="/profile" component={ProfilePage} />
         </Switch>
       </CookiesProvider>
     </div>

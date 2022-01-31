@@ -3,19 +3,17 @@ const router = Router();
 const collectionController = require("../controllers/collectionController");
 
 // Routes
-// This route will take a userID in the form of a POST variable
 
 /* #########################
    #     Movies Section    #
    ######################### */
 
-router.post(
+router.get(
   "/collections/movies/watched",
   collectionController.getUserMoviesWatchedCollection
 );
 
-// Same with this route - this is to avoid passing sensitive IDs in URLs
-router.post(
+router.get(
   "/collections/movies/watching",
   collectionController.getUserMoviesWatchingCollection
 );
@@ -34,13 +32,13 @@ router.put(
    #     Movies Section    #
    ######################### */
 
-router.post(
+router.get(
   "/collections/shows/watched",
   collectionController.getUserShowsWatchedCollection
 );
 
 // Same with this route - this is to avoid passing sensitive IDs in URLs
-router.post(
+router.get(
   "/collections/shows/watching",
   collectionController.getUserShowsWatchingCollection
 );

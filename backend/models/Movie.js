@@ -177,6 +177,21 @@ movieSchema.statics.findMovies = async function (
   return movies;
 };
 
+movieSchema.statics.findMovieViaID = async function (id) {
+  // create movie variable to return
+  var movie;
+
+  // if we have actually been supplied an ID, search
+  if (id !== undefined) {
+    movie = await this.find({
+      "_id": id,
+    });
+  }
+
+  // return the movie
+  return movie;
+};
+
 const Movie = mongoose.model("movie", movieSchema);
 
 module.exports = Movie;

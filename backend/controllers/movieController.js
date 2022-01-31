@@ -18,3 +18,14 @@ module.exports.movieSearchPost = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+module.exports.movieSearchViaID = async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    const movie = await Movie.findMovieViaID(id);
+    res.status(200).json({ result: movie });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};

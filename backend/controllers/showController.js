@@ -12,3 +12,14 @@ module.exports.showSearchPost = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+module.exports.showSearchViaID = async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    const show = await Show.findShowViaID(id);
+    res.status(200).json({ result: show });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};

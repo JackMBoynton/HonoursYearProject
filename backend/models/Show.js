@@ -177,6 +177,21 @@ showSchema.statics.findShows = async function (
   return shows;
 };
 
+showSchema.statics.findShowViaID = async function (id) {
+  // create movie variable to return
+  var show;
+
+  // if we have actually been supplied an ID, search
+  if (id !== undefined) {
+    show = await this.find({
+      "_id": id,
+    });
+  }
+
+  // return the movie
+  return show;
+};
+
 const Show = mongoose.model("show", showSchema);
 
 module.exports = Show;

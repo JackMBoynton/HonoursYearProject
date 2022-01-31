@@ -1,4 +1,5 @@
 const { getUIDViaToken } = require("./authController");
+const movieController = require("./movieController");
 
 const ShowWatchedList = require("../models/ShowWatchedList");
 const ShowWatchList = require("../models/ShowWatchList");
@@ -30,7 +31,11 @@ const handleErrors = (err) => {
 module.exports.getUserMoviesWatchedCollection = async (req, res) => {
   try {
     // get our jwt from the request
-    const jwt = req.body.jwt;
+    var jwt;
+    const cookie = req.headers.cookie;
+    if (cookie) {
+      jwt = cookie.slice(4, cookie.length);
+    }
 
     // use this jwt in our method to get our userID
     const userID = getUIDViaToken(jwt);
@@ -43,7 +48,7 @@ module.exports.getUserMoviesWatchedCollection = async (req, res) => {
 
     res.status(200).json({ "WatchedList": watchedList });
   } catch (error) {
-    error = handleErrors(error);
+    //error = handleErrors(error);
     res.status(400).json({ "Error": error.message });
   }
 };
@@ -52,7 +57,11 @@ module.exports.getUserMoviesWatchedCollection = async (req, res) => {
 module.exports.getUserMoviesWatchingCollection = async (req, res) => {
   try {
     // get our jwt from the request
-    const jwt = req.body.jwt;
+    var jwt;
+    const cookie = req.headers.cookie;
+    if (cookie) {
+      jwt = cookie.slice(4, cookie.length);
+    }
 
     // use this jwt in our method to get our userID
     const userID = getUIDViaToken(jwt);
@@ -74,7 +83,12 @@ module.exports.getUserMoviesWatchingCollection = async (req, res) => {
 // Updates the users Watched Collection
 module.exports.updateUserMoviesWatchedCollection = async (req, res) => {
   // get our jwt from the request
-  const { jwt, movieID, type } = req.body;
+  var jwt;
+  const cookie = req.headers.cookie;
+  if (cookie) {
+    jwt = cookie.slice(4, cookie.length);
+  }
+  const { movieID, type } = req.body;
 
   try {
     // use this jwt in our method to get our userID
@@ -96,7 +110,12 @@ module.exports.updateUserMoviesWatchedCollection = async (req, res) => {
 // Updates the users Watching Collection
 module.exports.updateUserMoviesWatchingCollection = async (req, res) => {
   // get our jwt from the request
-  const { jwt, movieID, type } = req.body;
+  var jwt;
+  const cookie = req.headers.cookie;
+  if (cookie) {
+    jwt = cookie.slice(4, cookie.length);
+  }
+  const { movieID, type } = req.body;
 
   try {
     // use this jwt in our method to get our userID
@@ -123,7 +142,11 @@ module.exports.updateUserMoviesWatchingCollection = async (req, res) => {
 module.exports.getUserShowsWatchedCollection = async (req, res) => {
   try {
     // get our jwt from the request
-    const jwt = req.body.jwt;
+    var jwt;
+    const cookie = req.headers.cookie;
+    if (cookie) {
+      jwt = cookie.slice(4, cookie.length);
+    }
 
     // use this jwt in our method to get our userID
     const userID = getUIDViaToken(jwt);
@@ -145,7 +168,11 @@ module.exports.getUserShowsWatchedCollection = async (req, res) => {
 module.exports.getUserShowsWatchingCollection = async (req, res) => {
   try {
     // get our jwt from the request
-    const jwt = req.body.jwt;
+    var jwt;
+    const cookie = req.headers.cookie;
+    if (cookie) {
+      jwt = cookie.slice(4, cookie.length);
+    }
 
     // use this jwt in our method to get our userID
     const userID = getUIDViaToken(jwt);
@@ -167,14 +194,19 @@ module.exports.getUserShowsWatchingCollection = async (req, res) => {
 // Updates the users Watched Collection
 module.exports.updateUserShowsWatchedCollection = async (req, res) => {
   // get our jwt from the request
-  const { jwt, movieID, type } = req.body;
+  var jwt;
+  const cookie = req.headers.cookie;
+  if (cookie) {
+    jwt = cookie.slice(4, cookie.length);
+  }
+  const { showID, type } = req.body;
 
   try {
     // use this jwt in our method to get our userID
     const userID = getUIDViaToken(jwt);
     const newCollection = await ShowWatchedList.updateUserWatched(
       userID,
-      movieID,
+      showID,
       type
     );
     res.status(200).json({ "Collection": newCollection });
@@ -189,14 +221,19 @@ module.exports.updateUserShowsWatchedCollection = async (req, res) => {
 // Updates the users Watching Collection
 module.exports.updateUserShowsWatchingCollection = async (req, res) => {
   // get our jwt from the request
-  const { jwt, movieID, type } = req.body;
+  var jwt;
+  const cookie = req.headers.cookie;
+  if (cookie) {
+    jwt = cookie.slice(4, cookie.length);
+  }
+  const { showID, type } = req.body;
 
   try {
     // use this jwt in our method to get our userID
     const userID = getUIDViaToken(jwt);
     const newCollection = await ShowWatchList.updateUserWatchlist(
       userID,
-      movieID,
+      showID,
       type
     );
     res.status(200).json({ "Collection": newCollection });
