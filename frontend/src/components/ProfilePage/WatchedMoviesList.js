@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 const axios = require("axios");
 
+// Components for MoviesList
+import MediaList from "./MediaListEntity/MediaList";
+import RemoveFavourites from "./MediaListEntity/RemoveFavourites";
+import MovieHeading from "./MediaListEntity/MovieHeading";
+
 const WatchedMoviesList = () => {
   // Create separate Axios Instance as we need withCredentials to be false for External API requests
   // However, default Axios requests need to contain withCredentials for internals
@@ -91,13 +96,18 @@ const WatchedMoviesList = () => {
   };
 
   const changeTitlesToMovies = async (collectionOfTitles) => {
+    var newMovieList;
     // Now we have a collection (array) of titles, so we want the movie instead
     var titleToMetadataPromises = collectionOfTitles.map((title) => {
       return returnMetadataFromTitle(title);
     });
     Promise.all(titleToMetadataPromises).then(function (result) {
       // then set it again in the state
-      setWatchedListMovies(result);
+      newMovieList = result.map((movie, index) => {
+        movie.mongoID = watchedListIDs[index];
+        return movie;
+      });
+      setWatchedListMovies(newMovieList);
     });
   };
 
@@ -116,10 +126,13 @@ const WatchedMoviesList = () => {
   console.log(watchedListMovies);
 
   return (
-    <div className="section">
-      <h2>Watched Movies Collection</h2>
-      <p>{JSON.stringify(watchedListMovies)}</p>
-    </div>
+    <>
+      <MediaList
+        movies={watchedListMovies}
+        heading={MovieHeading}
+        favouriteComponent={RemoveFavourites}
+      />
+    </>
   );
 };
 
