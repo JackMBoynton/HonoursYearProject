@@ -9,3 +9,8 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
+.platform-logo {
+  max-width: 40px;
+  max-height: 40px;
+}
