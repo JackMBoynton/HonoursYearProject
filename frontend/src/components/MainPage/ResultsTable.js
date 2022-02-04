@@ -51,7 +51,11 @@ const ResultsTable = (props) => {
                 {movie["Rotten Tomatoes"] ? movie["Rotten Tomatoes"] : "N/A"}
               </td>
               <td>
-                <a className="btn btn-primary" href="#" role="button">
+                <a
+                  className="btn btn-primary"
+                  href={`/movie/${movie.Title}`}
+                  role="button"
+                >
                   View
                 </a>
                 <a className="btn btn-success" href="#" role="button">

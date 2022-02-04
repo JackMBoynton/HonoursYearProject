@@ -11,6 +11,8 @@ import MainPage from "./components/MainPage/MainPage";
 import SignupPage from "./components/SignupPage/SignupPage";
 import LogoutPage from "./components/LogoutPage/LogoutPage";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
+import MoviePage from "./components/MoviePage/MoviePage";
+import ShowPage from "./components/ShowPage/ShowPage";
 
 const App = () => {
   return (
@@ -23,6 +25,8 @@ const App = () => {
           <Route exact path="/signup" component={SignupPage} />
           <Route exact path="/logout" component={LogoutPage} />
           <Route exact path="/profile" component={ProfilePage} />
+          <Route exact path="/movie/:title" component={MoviePage} />
+          <Route exact path="/show/:title" component={ShowPage} />
         </Switch>
       </CookiesProvider>
     </div>
