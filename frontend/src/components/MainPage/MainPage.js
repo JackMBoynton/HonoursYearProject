@@ -81,7 +81,7 @@ const MainPage = () => {
         setDisneyChoice={setDisneyChoice}
         setAmazonChoice={setAmazonChoice}
       />
-      <ResultsTable results={results} />
+      <ResultsTable results={results} mediaType={searchChoice} />
     </div>
   );
 };

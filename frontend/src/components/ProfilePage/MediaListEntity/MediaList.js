@@ -17,7 +17,7 @@ const MediaList = (props) => {
             </div>
             <img src={movie.Poster} alt="Movie" />
             <div
-              onClick={() => props.handleFavouritesClick(movie)}
+              onClick={() => props.handleFavouritesClick(movie.mongoID)}
               className="overlay-bottom d-flex align-items-center justify-content-center"
             >
               <FavouriteComponent />

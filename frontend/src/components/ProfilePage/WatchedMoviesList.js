@@ -111,6 +111,11 @@ const WatchedMoviesList = () => {
     });
   };
 
+  const removeFromFavourites = async (idToRemove) => {
+    // remove favourite using URL
+    console.log(idToRemove);
+  };
+
   useEffect(() => {
     fetchWatchedMovies();
   }, []);
@@ -123,13 +128,12 @@ const WatchedMoviesList = () => {
     changeTitlesToMovies(watchedListTitles);
   }, [watchedListTitles]);
 
-  console.log(watchedListMovies);
-
   return (
     <>
       <MediaList
         movies={watchedListMovies}
         heading={MovieHeading}
+        handleFavouritesClick={removeFromFavourites}
         favouriteComponent={RemoveFavourites}
       />
     </>
