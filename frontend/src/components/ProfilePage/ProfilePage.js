@@ -6,34 +6,34 @@ import WatchedMoviesList from "./WatchedMoviesList";
 import WatchingMoviesList from "./WatchingMoviesList";
 import WatchedShowsList from "./WatchedShowsList";
 import WatchingShowsList from "./WatchingShowsList";
-import MovieListHeading from "./MovieListHeading";
+import MediaListHeading from "./MediaListHeading";
 
-const ProfilePage = () => {
+const ProfilePage = (props) => {
   return (
     <div className="container-fluid movie-app">
       <div className="row d-flex align-items-center mt-4 mb-4">
-        <MovieListHeading heading="Watched Movies Collection" />
+        <MediaListHeading heading="Watched Movies Collection" />
       </div>
       <div className="row">
-        <WatchedMoviesList />
+        <WatchedMoviesList history={props.history} />
       </div>
       <div className="row d-flex align-items-center mt-4 mb-4">
-        <MovieListHeading heading="Watching Movies Collection" />
+        <MediaListHeading heading="Watching Movies Collection" />
       </div>
       <div className="row">
-        <WatchingMoviesList />
+        <WatchingMoviesList history={props.history} />
       </div>
       <div className="row d-flex align-items-center mt-4 mb-4">
-        <MovieListHeading heading="Watched TV Shows Collection" />
+        <MediaListHeading heading="Watched TV Shows Collection" />
       </div>
       <div className="row">
-        <WatchedShowsList />
+        <WatchedShowsList history={props.history} />
       </div>
       <div className="row d-flex align-items-center mt-4 mb-4">
-        <MovieListHeading heading="Watching TV Shows Collection" />
+        <MediaListHeading heading="Watching TV Shows Collection" />
       </div>
       <div className="row">
-        <WatchingShowsList />
+        <WatchingShowsList history={props.history} />
       </div>
     </div>
   );

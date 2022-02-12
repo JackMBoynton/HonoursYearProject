@@ -1,6 +1,6 @@
 import React from "react";
 
-const MovieListHeading = (props) => {
+const MediaListHeading = (props) => {
   return (
     <div className="col">
       <h2>{props.heading}</h2>
@@ -8,4 +8,4 @@ const MovieListHeading = (props) => {
   );
 };
 
-export default MovieListHeading;
+export default MediaListHeading;

@@ -20,6 +20,7 @@
 .movie-app > .row {
   overflow-x: auto;
   flex-wrap: nowrap;
+  overflow-y: hidden;
 }
 
 .image-container {
@@ -64,5 +65,9 @@
   bottom: 0;
   font-size: 20px;
   padding: 20px 20px 30px 20px;
+  text-align: center;
+}
+
+.empty-collection {
   text-align: center;
 }

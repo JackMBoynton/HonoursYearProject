@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-notifications/lib/notifications.css";
 const axios = require("axios");
 
 // components to import

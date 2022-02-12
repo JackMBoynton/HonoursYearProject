@@ -2,22 +2,22 @@ import React from "react";
 
 const MediaList = (props) => {
   const FavouriteComponent = props.favouriteComponent;
-  const MovieHeading = props.heading;
+  const MediaHeading = props.heading;
 
-  if (props.movies) {
+  if (props.contents) {
     return (
       <>
-        {props.movies.map((movie, index) => (
+        {props.contents.map((content, index) => (
           <div
-            key={movie.imdbID}
+            key={content.imdbID}
             className="image-container d-flex justify-content-start m-3"
           >
             <div className="overlay-top d-flex align-items-center justify-content-center">
-              <MovieHeading movieID={movie.imdbID} movieTitle={movie.Title} />
+              <MediaHeading type={props.type} mediaTitle={content.Title} />
             </div>
-            <img src={movie.Poster} alt="Movie" />
+            <img src={content.Poster} alt="Content" />
             <div
-              onClick={() => props.handleFavouritesClick(movie.mongoID)}
+              onClick={() => props.handleFavouritesClick(content.mongoID)}
               className="overlay-bottom d-flex align-items-center justify-content-center"
             >
               <FavouriteComponent />
