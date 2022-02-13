@@ -14,6 +14,7 @@ import LogoutPage from "./components/LogoutPage/LogoutPage";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import MoviePage from "./components/MoviePage/MoviePage";
 import ShowPage from "./components/ShowPage/ShowPage";
+import SettingsPage from "./components/SettingsPage/SettingsPage";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route exact path="/signup" component={SignupPage} />
           <Route exact path="/logout" component={LogoutPage} />
           <Route exact path="/profile" component={ProfilePage} />
+          <Route exact path="/account-settings" component={SettingsPage} />
           <Route exact path="/movie/:title" component={MoviePage} />
           <Route exact path="/show/:title" component={ShowPage} />
         </Switch>

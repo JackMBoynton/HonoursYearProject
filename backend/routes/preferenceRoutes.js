@@ -6,6 +6,6 @@ const preferenceController = require("../controllers/preferenceController");
 router.put("/user/preferences/set", preferenceController.setUserPreferences);
 
 // POST Route for posting user ID to return User preferences for that user
-router.post("/user/preferences/get", preferenceController.getUserPreferences);
+router.get("/user/preferences/get", preferenceController.getUserPreferences);
 
 module.exports = router;

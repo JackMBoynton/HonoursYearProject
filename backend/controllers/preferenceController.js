@@ -14,8 +14,14 @@ const handleErrors = (err) => {
 
 // Set User's preferences
 module.exports.setUserPreferences = async (req, res) => {
+  // get our jwt from the request
+  var jwt;
+  const cookie = req.headers.cookie;
+  if (cookie) {
+    jwt = cookie.slice(4, cookie.length);
+  }
   // get our variables from the req body
-  const { jwt, netflix, hulu, disney, amazon } = req.body;
+  const { netflix, hulu, disney, amazon } = req.body;
 
   try {
     // use this jwt to return our userID from the method in collectionsController
@@ -55,7 +61,12 @@ module.exports.setUserPreferences = async (req, res) => {
 
 // Return User's preferences
 module.exports.getUserPreferences = async (req, res) => {
-  const jwt = req.body.jwt;
+  // get our jwt from the request
+  var jwt;
+  const cookie = req.headers.cookie;
+  if (cookie) {
+    jwt = cookie.slice(4, cookie.length);
+  }
 
   try {
     // get UID from JWT
