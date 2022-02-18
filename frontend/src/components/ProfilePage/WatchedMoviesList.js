@@ -10,7 +10,7 @@ import MediaList from "./MediaListEntity/MediaList";
 import RemoveFavourites from "./MediaListEntity/RemoveFavourites";
 import MediaHeading from "./MediaListEntity/MediaHeading";
 
-const WatchedMoviesList = (props) => {
+const WatchedMoviesList = () => {
   // Create separate Axios Instance as we need withCredentials to be false for External API requests
   // However, default Axios requests need to contain withCredentials for internals
   const axiosInstance = axios.create({

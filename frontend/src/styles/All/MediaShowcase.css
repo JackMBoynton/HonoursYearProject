@@ -1,0 +1,30 @@
+.media-content {
+  margin-top: 5%;
+}
+
+.media-poster {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+#poster-section {
+  display: flex;
+  align-items: flex-end;
+  justify-content: end;
+  max-width: 400px;
+}
+
+.heading {
+  font-weight: bolder;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+.ratings-table {
+  text-align: center;
+}
+
+.media-not-found {
+  text-align: center;
+  margin-top: 5%;
+}
