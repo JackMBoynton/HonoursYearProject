@@ -31,7 +31,7 @@ const ShowPage = (props) => {
       .then(function (response) {
         // assign our media
         setMedia(response.data);
-        if (response.Response === "True") {
+        if (response.data.Response === "True") {
           processRatings(response.data.Ratings);
         }
       })
